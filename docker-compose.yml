@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # 1. MQTT Broker (Eclipse Mosquitto)
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: iot-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - iot-network
+
+  # 2. Node-RED (Automation Engine)
+  nodered:
+    image: nodered/node-red:latest
+    container_name: iot-nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./node-red/data:/data
+    environment:
+      - TZ=UTC
+    depends_on:
+      - mosquitto
+    networks:
+      - iot-network
+
+  # 3. InfluxDB (Time-Series Database v2)
+  influxdb:
+    image: influxdb:2.7
+    container_name: iot-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=ChangeThisSecurePassword123!
+      - DOCKER_INFLUXDB_INIT_ORG=my-iot-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=iot-data
+    networks:
+      - iot-network
+
+  # 4. Grafana (Data Visualization Dashboard)
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: iot-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=ChangeThisSecurePassword123!
+    depends_on:
+      - influxdb
+    networks:
+      - iot-network
+
+  # 5. Python Application Environment
+  python-app:
+    image: python:3.11-slim
+    container_name: iot-python-app
+    restart: unless-stopped
+    volumes:
+      - ./python:/app
+    working_dir: /app
+    # Keeps the container running so you can execute scripts or run a listener script
+    command: sh -c "pip install --no-cache-dir paho-mqtt influxdb-client requests && tail -f /dev/null"
+    depends_on:
+      - mosquitto
+      - influxdb
+    networks:
+      - iot-network
+
+networks:
+  iot-network:
+    driver: bridge
