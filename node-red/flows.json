@@ -1,0 +1,160 @@
+[
+    {
+        "id": "6c6262f0f6968c18",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "35ad7207c35608eb",
+        "type": "mqtt in",
+        "z": "6c6262f0f6968c18",
+        "name": "test",
+        "topic": "demo-publish",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3bb4c4b3b541bd62",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 690,
+        "y": 160,
+        "wires": [
+            [
+                "b2e852de99ec2edf"
+            ]
+        ]
+    },
+    {
+        "id": "2cf77cfefdd4829a",
+        "type": "inject",
+        "z": "6c6262f0f6968c18",
+        "name": "test",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "sensor",
+                "v": "machine-1",
+                "vt": "str"
+            },
+            {
+                "p": "value",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "demo-pub",
+        "payload": "",
+        "payloadType": "date",
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "98fa53a9396dfcb1"
+            ]
+        ]
+    },
+    {
+        "id": "98fa53a9396dfcb1",
+        "type": "mqtt out",
+        "z": "6c6262f0f6968c18",
+        "name": "",
+        "topic": "demo-publish",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3bb4c4b3b541bd62",
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b2e852de99ec2edf",
+        "type": "influxdb out",
+        "z": "6c6262f0f6968c18",
+        "influxdb": "8dc1e63dada218cc",
+        "name": "demo",
+        "measurement": "machines",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "5faa419199324f51",
+        "bucket": "iot-data",
+        "x": 870,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3bb4c4b3b541bd62",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8dc1e63dada218cc",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": 8086,
+        "protocol": "http",
+        "database": "my-iot-org",
+        "name": "influxdb",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "timeout": 10,
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "5212d8bdb5928cef",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]
