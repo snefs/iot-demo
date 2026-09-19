@@ -1,3 +1,6 @@
+# TODO
+Switch Mosquito to https://hub.docker.com/r/emqx/emqx
+
 # IOT DEMO Environment
 
 Here is a complete, production-ready Docker Compose stack featuring MQTT (Eclipse Mosquitto), Node-RED, InfluxDB, Grafana, and a Python environment.This stack includes persistent data storage, pre-created networks for secure container communication, and automatic container restarts.
