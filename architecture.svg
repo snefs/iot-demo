@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#14213d"/></linearGradient><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6 0 12Z" fill="#6ee7f9"/></marker><style>.title{font:700 44px Arial;fill:#fff}.sub{font:22px Arial;fill:#b8c9df}.label{font:700 25px Arial;fill:#8de7ff;letter-spacing:2px}.head{font:700 29px Arial;fill:#fff}.body{font:22px Arial;fill:#d8e5f4}.note{font:19px Arial;fill:#b8c9df}.box{stroke-width:3;rx:18}.line{stroke:#6ee7f9;stroke-width:5;fill:none;marker-end:url(#arrow)}.dashed{stroke:#a78bfa;stroke-width:4;stroke-dasharray:12 10;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<text x="80" y="70" class="title">IoT MACHINE MONITORING</text><text x="80" y="108" class="sub">Node-RED as the orchestration core — telemetry, calculation, storage and visualization</text>
+
+<!-- top input -->
+<rect x="650" y="150" width="620" height="145" class="box" fill="#21405c" stroke="#67e8f9"/><text x="700" y="200" class="label">INPUT / MESSAGE BUS</text><text x="700" y="242" class="head">Mosquitto MQTT</text><text x="700" y="275" class="body">machine-sensors • JSON sensor telemetry</text>
+
+<!-- left data -->
+<rect x="90" y="410" width="500" height="220" class="box" fill="#382354" stroke="#c084fc"/><text x="140" y="465" class="label">DATA LAYER</text><text x="140" y="510" class="head">InfluxDB</text><text x="140" y="548" class="body">iot-data bucket</text><text x="140" y="585" class="note">machine_measurements</text><text x="140" y="613" class="note">order_results</text>
+
+<!-- core -->
+<rect x="700" y="390" width="520" height="270" class="box" fill="#0d4960" stroke="#22d3ee" stroke-width="5"/><text x="760" y="455" class="label">CORE ORCHESTRATION</text><text x="760" y="510" class="head">Node-RED</text><text x="760" y="550" class="body">MachineDataGenerator</text><text x="760" y="585" class="body">MachineDataStorage</text><text x="760" y="620" class="body">OrderAPI callback</text>
+
+<!-- right API and logic -->
+<rect x="1340" y="375" width="480" height="145" class="box" fill="#16452f" stroke="#4ade80"/><text x="1385" y="425" class="label">API</text><text x="1385" y="468" class="head">Python FastAPI</text><text x="1385" y="502" class="body">POST /calculate</text>
+<rect x="1340" y="570" width="480" height="145" class="box" fill="#16452f" stroke="#4ade80"/><text x="1385" y="620" class="label">BUSINESS LOGIC</text><text x="1385" y="663" class="head">OrderCalculator</text><text x="1385" y="697" class="body">quality • delivery planning</text>
+
+<!-- bottom outputs -->
+<rect x="710" y="820" width="500" height="145" class="box" fill="#21405c" stroke="#67e8f9"/><text x="760" y="870" class="label">VISUALIZATION</text><text x="760" y="913" class="head">Grafana</text><text x="760" y="947" class="body">telemetry • heatmap • order table</text>
+
+<!-- flows -->
+<path d="M960 295V380" class="line"/><path d="M700 500H605" class="line"/><path d="M1220 500H1330" class="line"/><path d="M1580 520V560" class="line"/><path d="M1340 640C1260 640 1260 530 1220 530" class="dashed"/><path d="M340 630C340 760 800 760 800 810" class="line"/>
+<text x="615" y="350" class="note">publish</text><text x="615" y="480" class="note">write / query</text><text x="1230" y="480" class="note">trigger</text><text x="1225" y="755" class="note">callback</text>
+</svg>

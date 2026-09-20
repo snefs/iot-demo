@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # 1. MQTT Broker (Eclipse Mosquitto)
   mosquitto:
@@ -18,13 +16,18 @@ services:
 
   # 2. Node-RED (Automation Engine)
   nodered:
-    image: nodered/node-red:latest
+    build:
+      context: ./node-red
+      dockerfile: Dockerfile
+    image: iot-nodered:latest
     container_name: iot-nodered
     restart: unless-stopped
     ports:
       - "1880:1880"
     volumes:
-      - ./node-red/data:/data
+      # Persist the complete Node-RED user directory on the host, including
+      # flows, credentials, settings, and installed nodes.
+      - ./node-red:/data
     environment:
       - TZ=UTC
     depends_on:
@@ -48,6 +51,7 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=ChangeThisSecurePassword123!
       - DOCKER_INFLUXDB_INIT_ORG=my-iot-org
       - DOCKER_INFLUXDB_INIT_BUCKET=iot-data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=iot-demo-token
     networks:
       - iot-network
 
@@ -60,6 +64,8 @@ services:
       - "3000:3000"
     volumes:
       - ./grafana/data:/var/lib/grafana
+      - ./grafana/dashboard.json:/var/lib/grafana/dashboards/iot-machine-monitoring.json:ro
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=ChangeThisSecurePassword123!
@@ -73,11 +79,18 @@ services:
     image: python:3.11-slim
     container_name: iot-python-app
     restart: unless-stopped
+    ports:
+      - "8000:8000"
     volumes:
       - ./python:/app
     working_dir: /app
+    environment:
+      - INFLUX_TOKEN=iot-demo-token
+      - INFLUX_ORG=my-iot-org
+      - INFLUX_BUCKET=iot-data
+      - ORDER_API_URL=http://nodered:1880/orderapi
     # Keeps the container running so you can execute scripts or run a listener script
-    command: sh -c "pip install --no-cache-dir paho-mqtt influxdb-client requests && tail -f /dev/null"
+    command: sh -c "pip install --no-cache-dir -r requirements.txt && uvicorn order_calculator:app --host 0.0.0.0 --port 8000"
     depends_on:
       - mosquitto
       - influxdb

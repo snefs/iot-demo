@@ -18,7 +18,7 @@
         "type": "tab",
         "label": "OrderAPI",
         "disabled": false,
-        "info": "Receives calculated orders and persists them for Grafana."
+        "info": "Receives calculated orders and displays them in Dashboard 2.0."
     },
     {
         "id": "swagger-order",
@@ -112,13 +112,8 @@
         "name": "Generate 10 machines / orders 1-5",
         "func": "const decimal = (value, places) => Number(value.toFixed(places));\nconst extremeMachine = Math.random() < 0.25 ? Math.floor(Math.random() * 10) + 1 : null;\nfor (let machineId = 1; machineId <= 10; machineId++) {\n    const extreme = machineId === extremeMachine;\n    const machineData = { machine_id: `machine-${machineId}`, order_id: Math.floor(Math.random() * 5) + 1, temperature_c: extreme ? decimal(115 + Math.random() * 20, 1) : decimal(55 + Math.random() * 15, 1), vibration_mm_s: extreme ? decimal(18 + Math.random() * 8, 2) : decimal(1 + Math.random() * 3, 2), pressure_bar: extreme ? decimal(1 + Math.random() * 2, 2) : decimal(6 + Math.random() * 2, 2), extreme_value: extreme, measurement_timestamp: new Date().toISOString() };\n    node.send({ topic: 'machine-sensors', payload: JSON.stringify(machineData) });\n}\nreturn null;",
         "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
         "x": 400,
-        "y": 180,
+        "y": 240,
         "wires": [
             [
                 "d1c98c4467c9a08e"
@@ -137,8 +132,8 @@
         "stream": false,
         "addname": "",
         "property": "payload",
-        "x": 400,
-        "y": 240,
+        "x": 760,
+        "y": 180,
         "wires": [
             [
                 "d1c98c4467c9a08e"
@@ -159,8 +154,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79ca3d4dc09a352e",
-        "x": 670,
-        "y": 200,
+        "x": 1010,
+        "y": 360,
         "wires": []
     },
     {
@@ -196,7 +191,7 @@
         "retentionPolicyV18Flux": "",
         "org": "my-iot-org",
         "bucket": "iot-data",
-        "x": 650,
+        "x": 690,
         "y": 100,
         "wires": []
     },
@@ -382,8 +377,8 @@
         "id": "calculate-orders-dashboard",
         "type": "function",
         "z": "tab-api",
-        "name": "Persist calculated orders",
-        "func": "const orders = (msg.payload && msg.payload.orders) || [];\nconst today = new Date().toISOString().slice(0, 10);\nconst normalized = orders.filter(o => Number(o.order_id) >= 1 && Number(o.order_id) <= 5).map(o => ({ order_id: Number(o.order_id), start_date: o.start_date || today, planned_delivery: o.planned_delivery || o.delivery_date || today, quality: Number.isFinite(Number(o.quality)) ? Number(o.quality) : 100, comment: o.comment || 'quality OK', delivery_remark: o.delivery_remark || o.comment || 'planned delivery' }));\nconst fixedTimeNs = Date.parse('2026-09-20T00:00:00.000Z') * 1000000;\nconst influxMessages = normalized.map(o => ({ measurement: 'order_results', payload: [{ time: fixedTimeNs, quality: o.quality, remark: o.comment, planned_delivery: o.planned_delivery, delivery_remark: o.delivery_remark }, { orderId: String(o.order_id) }] }));\nreturn [null, influxMessages];",
+        "name": "Show calculated orders",
+        "func": "const orders = (msg.payload && msg.payload.orders) || [];\nconst today = new Date().toISOString().slice(0, 10);\nconst normalized = orders.filter(o => Number(o.order_id) >= 1 && Number(o.order_id) <= 5).map(o => ({ order_id: Number(o.order_id), start_date: o.start_date || today, planned_delivery: o.planned_delivery || o.delivery_date || today, quality: Number.isFinite(Number(o.quality)) ? Number(o.quality) : 100, comment: o.comment || 'quality OK', delivery_remark: o.delivery_remark || o.comment || 'planned delivery' }));\nconst dashboardMessage = { payload: { status: 'calculated', orders: normalized } };\nconst fixedTimeNs = Date.parse('2026-09-20T00:00:00.000Z') * 1000000;\nconst influxMessages = normalized.map(o => ({ measurement: 'order_results', payload: [{ time: fixedTimeNs, quality: o.quality, remark: o.comment, planned_delivery: o.planned_delivery, delivery_remark: o.delivery_remark }, { orderId: String(o.order_id) }] }));\nreturn [dashboardMessage, influxMessages];",
         "outputs": 2,
         "x": 750,
         "y": 380,

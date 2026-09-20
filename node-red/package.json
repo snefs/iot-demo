@@ -1,0 +1,12 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "@digital-tvilling/node-red-openapi-generator": "~1.1.1",
+        "@flowfuse/node-red-dashboard": "~1.31.0",
+        "node-red-contrib-influxdb": "~0.7.0",
+        "node-red-contrib-knx-ultimate": "~8.0.1"
+    }
+}

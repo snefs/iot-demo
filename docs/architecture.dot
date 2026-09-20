@@ -1,0 +1,65 @@
+digraph iot_architecture {
+    rankdir=LR;
+    splines=spline;
+    nodesep=0.5;
+    ranksep=0.9;
+    fontname="Helvetica";
+    node [fontname="Helvetica", fontsize=13];
+    edge [fontname="Helvetica", fontsize=11];
+
+    // ------------------------------------------------------------------ Node-RED
+    subgraph cluster_nodered {
+        label="Node-RED / iot-nodered :1880";
+        fontsize=16;
+        style="rounded";
+        color="#b71c1c";
+        fillcolor="#fdecea";
+        style="rounded,filled";
+
+        gen  [label="Inject · every 2s", shape=box, fillcolor="#fff3cd", style="rounded,filled"];
+        genf [label="Generate 10 machines\norders 1-5 · 25% extreme", shape=box, fillcolor="#fff3cd", style="rounded,filled"];
+        mqout [label="mqtt out\ntopic = machine-sensors", shape=box, fillcolor="#ffe0b2", style="rounded,filled"];
+
+        httpin [label="http in · POST /orderapi", shape=box, fillcolor="#d7ccc8", style="rounded,filled"];
+        store [label="validate + store orders", shape=box, fillcolor="#fff9c4", style="rounded,filled"];
+        norm [label="normalize → upsert point\nfixed ns timestamp\nfields: quality, remark, planned_delivery,\ndelivery_remark · tag: orderId", shape=box, fillcolor="#fff9c4", style="rounded,filled"];
+        ordout [label="influxdb out\norder_results", shape=box, fillcolor="#fff3cd", style="rounded,filled"];
+
+        initial [label="Inject · initial orders\n(once at startup)", shape=box, fillcolor="#fff3cd", style="rounded,filled"];
+        trigger [label="Inject · calculate now\n(manual)", shape=box, fillcolor="#ec407a", style="rounded,filled", fontcolor="#ffffff"];
+        hreq [label="http request\nPOST /calculate", shape=box, fillcolor="#ffe0b2", style="rounded,filled"];
+        stfn [label="validate → build point\nfields: temperature_c,\nvibration_mm_s, pressure_bar\ntags: machine_id, order_id,\nextreme_value", shape=box, fillcolor="#fff9c4", style="rounded,filled"];
+        sto [label="influxdb out\nmachine_measurements", shape=box, fillcolor="#fff3cd", style="rounded,filled"];
+        mqin [label="mqtt in · machine-sensors\n(qos 2, json)", shape=box, fillcolor="#ffe0b2", style="rounded,filled"];
+
+        gen -> genf -> mqout;
+        mqin -> stfn -> sto;
+        initial -> norm;
+        trigger -> hreq;
+        httpin -> store -> norm;
+        norm -> ordout;
+    }
+
+    // ------------------------------------------------------------------ Mosquitto
+    broker [label="Mosquitto broker\niot-mosquitto\n:1883 / ws :9001", shape=cylinder, style="filled", fillcolor="#37474f", fontcolor="#ffffff", fontsize=15, width=1.6];
+
+    // ------------------------------------------------------------------ Node-RED -> Mosquitto
+    mqout -> broker [label="publish\nmachine-sensors", color="#b71c1c", fontcolor="#b71c1c", style=bold];
+    broker -> mqin [label="subscribe\nmachine-sensors", color="#b71c1c", fontcolor="#b71c1c", style=bold];
+
+    // ------------------------------------------------------------------ Python
+    python [label="Python FastAPI / iot-python-app :8000\n\nPOST /calculate\nFlux query machine_measurements (-1h)\ncompute quality per order\norder 3 ⇒ delay · extreme ⇒ issue\nelse 100", shape=box, style="rounded,filled", fillcolor="#e8f5e9", color="#2e7d32", fontsize=13];
+    hreq -> python [label="POST http://python-app:8000/calculate", color="#2e7d32", fontcolor="#2e7d32", style=bold];
+    python -> httpin [label="POST http://nodered:1880/orderapi", color="#2e7d32", fontcolor="#2e7d32", style=bold];
+
+    // ------------------------------------------------------------------ InfluxDB
+    influx [label=<InfluxDB 2.7 / iot-influxdb :8086<br/>org: my-iot-org · bucket: iot-data<br/><br/><B>machine_measurements</B><br/>fields: temperature_c, vibration_mm_s, pressure_bar<br/>tags: machine_id, order_id, extreme_value<br/><br/><B>order_results</B> (fixed ts ⇒ upsert in place)<br/>fields: quality, remark, planned_delivery, delivery_remark<br/>tag: orderId>, shape=box, style="rounded,filled", fillcolor="#e3f2fd", color="#1565c0", fontsize=13, fontcolor="#0d47a1"];
+
+    sto -> influx [label="writes", color="#1565c0", fontcolor="#1565c0"];
+    ordout -> influx [color="#1565c0"];
+    python -> influx [style=dashed, dir=both, label="reads", color="#2e7d32", fontcolor="#2e7d32"];
+
+    // ------------------------------------------------------------------ Grafana
+    grafana [label="Grafana / iot-grafana :3000\ndatasource: Flux · uid = influxdb\n\n⚡ Machine Telemetry dashboard\npanels 1-5: temperature / vibration /\npressure charts (2s aggregation)\n\npanel 6: Orders by delivery date\ntable ordered by planned_delivery\norderId | quality | remark | delivery", shape=box, style="rounded,filled", fillcolor="#fde2cf", color="#f5791f", fontsize=13];
+    influx -> grafana [label="Flux queries", color="#f5791f", fontcolor="#f5791f", style=bold];
+}

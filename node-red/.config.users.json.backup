@@ -1,0 +1,71 @@
+{
+    "_": {
+        "editor": {
+            "view": {
+                "view-store-zoom": false,
+                "view-store-position": false,
+                "view-show-grid": true,
+                "view-snap-grid": true,
+                "view-grid-size": "20",
+                "view-node-status": true,
+                "view-node-info-icon": true,
+                "view-node-show-label": true,
+                "view-show-tips": false,
+                "view-show-welcome-tours": true
+            },
+            "sidebar": {
+                "state": {
+                    "v": 4,
+                    "tabs": [],
+                    "primary": {
+                        "width": 555,
+                        "top": {
+                            "tabs": [
+                                "info",
+                                "help",
+                                "config",
+                                "context",
+                                "swagger-ui",
+                                "dashboard-2.0"
+                            ],
+                            "height": 274,
+                            "hidden": false,
+                            "active": "config"
+                        },
+                        "bottom": {
+                            "tabs": [
+                                "debug"
+                            ],
+                            "hidden": false,
+                            "active": "debug"
+                        }
+                    },
+                    "secondary": {
+                        "width": 210,
+                        "top": {
+                            "tabs": [
+                                "explorer"
+                            ],
+                            "height": 312,
+                            "hidden": false,
+                            "active": "explorer"
+                        },
+                        "bottom": {
+                            "tabs": [
+                                "palette"
+                            ],
+                            "hidden": false,
+                            "active": "palette"
+                        }
+                    }
+                }
+            },
+            "tours": {
+                "welcome": "5.0.7"
+            }
+        },
+        "debug": {
+            "filter": "filterSelected"
+        }
+    }
+}

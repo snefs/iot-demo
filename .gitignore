@@ -1,1 +1,7 @@
 *_accounts.json
+__pycache__
+.npm
+node_modules
+plugins
+unified-search
+data
