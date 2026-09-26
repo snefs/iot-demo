@@ -1,4 +1,4 @@
-# IOT DEMO Environment
+# IoT Demo Environment
 A working IoT demo environment that can be used for presentations, and quick POC. This showcases an offline/local processing environment, that is able to process telemetry data, make calculations, and dashboarding. Mqtt/Grafana/InfluxDb/Python/Node-Red
 
 This is a (Dev only), this Docker compose stack includes persistent data storage, pre-created networks for secure container communication, and automatic container restarts.
