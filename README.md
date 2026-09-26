@@ -21,18 +21,18 @@ Here is a complete, Docker Compose stack featuring MQTT (Eclipse Mosquitto), Nod
 
 ### Architecture
 
-<img src="architecture.svg" width="40%"  />
+<img src="./docs/architecture.svg" width="40%"  />
 
 
 
 ### Dashboard
 
-<img src="Screenshot.png" width="40%"  />
+<img src="./docs/Screenshot.png" width="40%"  />
 
 
 ### Order update from Python
 
-<img src="Screenshot2.png" width="40%"  />
+<img src="./docs/Screenshot2.png" width="40%"  />
 
 ### Windows
 If Docker desktop is running, from vs-code simply run: start-iot-stack.ps1 and the containers will be created and the endpoints are opened in the browser.
