@@ -1,11 +1,12 @@
 # IOT DEMO Environment
-A working IoT demo environment that can be used for presentations, and quick POC. This showcases a offline/local processing environment, that is able to process telemetry data, make calculations, and dashboarding. 
+A working IoT demo environment that can be used for presentations, and quick POC. This showcases an offline/local processing environment, that is able to process telemetry data, make calculations, and dashboarding. Mqtt/Grafana/InfluxDb/Python/Node-Red
 
-This is a (Dev only), Docker Compose stack featuring MQTT (Eclipse Mosquitto), Node-RED, InfluxDB, Grafana, and a Python environment.This stack includes persistent data storage, pre-created networks for secure container communication, and automatic container restarts.
+This is a (Dev only), this Docker compose stack includes persistent data storage, pre-created networks for secure container communication, and automatic container restarts.
 - Grafana: Dashboard
 - Influx: Timeseries database
 - Mqtt: Broker
 - Node-Red: Orchestrator
+- Python: business logic
 
 ## Demo workflow
 - Publisher: Sensor telemtry (simulated) is published to a Mqtt topic (this is not yet Unified Namespace - standardised data set, but is a separate flow to support this)
