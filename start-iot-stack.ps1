@@ -14,11 +14,9 @@ Start-Sleep -Seconds 5
 
 $urls = @(
     'http://localhost:1880',
-    'http://localhost:1880/dashboard/orders',
-    'http://localhost:3000',
+    'http://localhost:3000/d/iot-machine-monitoring/e29aa1-machine-telemetry-fixed-order-set?orgId=1&from=now-15m&to=now&timezone=browser&refresh=5s',
     'http://localhost:8086',
-    'http://localhost:8000/docs',
-    'http://localhost:8000/health'
+    'http://localhost:8000/docs'
 )
 
 foreach ($url in $urls) {

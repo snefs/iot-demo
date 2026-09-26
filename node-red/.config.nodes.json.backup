@@ -457,7 +457,7 @@
                 "types": [
                     "ui-base"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -468,7 +468,7 @@
                 "types": [
                     "ui-page"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -479,7 +479,7 @@
                 "types": [
                     "ui-link"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -490,7 +490,7 @@
                 "types": [
                     "ui-group"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -501,7 +501,7 @@
                 "types": [
                     "ui-theme"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -512,7 +512,7 @@
                 "types": [
                     "ui-form"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -523,7 +523,7 @@
                 "types": [
                     "ui-text-input"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -534,7 +534,7 @@
                 "types": [
                     "ui-number-input"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -545,7 +545,7 @@
                 "types": [
                     "ui-file-input"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -556,7 +556,7 @@
                 "types": [
                     "ui-button"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -567,7 +567,7 @@
                 "types": [
                     "ui-button-group"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -578,7 +578,7 @@
                 "types": [
                     "ui-dropdown"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -589,7 +589,7 @@
                 "types": [
                     "ui-radio-group"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -600,7 +600,7 @@
                 "types": [
                     "ui-slider"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -611,7 +611,7 @@
                 "types": [
                     "ui-spacer"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -622,7 +622,7 @@
                 "types": [
                     "ui-switch"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -633,7 +633,7 @@
                 "types": [
                     "ui-text"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -644,7 +644,7 @@
                 "types": [
                     "ui-table"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -655,7 +655,7 @@
                 "types": [
                     "ui-chart"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -666,7 +666,7 @@
                 "types": [
                     "ui-gauge"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -677,7 +677,7 @@
                 "types": [
                     "ui-notification"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -688,7 +688,7 @@
                 "types": [
                     "ui-audio"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -699,7 +699,7 @@
                 "types": [
                     "ui-markdown"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -710,7 +710,7 @@
                 "types": [
                     "ui-template"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -721,7 +721,7 @@
                 "types": [
                     "ui-event"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -732,7 +732,7 @@
                 "types": [
                     "ui-control"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -743,7 +743,7 @@
                 "types": [
                     "ui-progress"
                 ],
-                "enabled": true,
+                "enabled": false,
                 "local": true,
                 "user": false,
                 "module": "@flowfuse/node-red-dashboard",
@@ -789,6 +789,27 @@
                 "user": false,
                 "module": "node-red-node-swagger",
                 "file": "/usr/src/node-red/node_modules/node-red-node-swagger/swagger/swagger.js"
+            }
+        }
+    },
+    "node-red-contrib-i2c": {
+        "name": "node-red-contrib-i2c",
+        "version": "0.9.0",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "i2c": {
+                "name": "i2c",
+                "types": [
+                    "i2c scan",
+                    "i2c in",
+                    "i2c out"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-i2c",
+                "file": "/data/node_modules/node-red-contrib-i2c/i2c/26-i2c.js"
             }
         }
     }
